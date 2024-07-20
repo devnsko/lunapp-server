@@ -1,0 +1,326 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NearEarthObjectOfYear check 2018 1`] = `
+{
+  "closestObject": {
+    "absolute_magnitude_h": 30.2,
+    "close_approach_data": [
+      {
+        "close_approach_date": "2018-10-19",
+        "close_approach_date_full": "2018-Oct-19 14:46",
+        "epoch_date_close_approach": 1539960360000,
+        "miss_distance": {
+          "astronomical": "0.0000913917",
+          "kilometers": "13672.003655679",
+          "lunar": "0.0355513713",
+          "miles": "8495.3891352102",
+        },
+        "orbiting_body": "Earth",
+        "relative_velocity": {
+          "kilometers_per_hour": "50925.5075941542",
+          "kilometers_per_second": "14.1459743317",
+          "miles_per_hour": "31643.129982601",
+        },
+      },
+    ],
+    "estimated_diameter": {
+      "feet": {
+        "estimated_diameter_max": 17.7838190184,
+        "estimated_diameter_min": 7.9531656449,
+      },
+      "kilometers": {
+        "estimated_diameter_max": 0.0054205079,
+        "estimated_diameter_min": 0.0024241248,
+      },
+      "meters": {
+        "estimated_diameter_max": 5.4205078634,
+        "estimated_diameter_min": 2.424124811,
+      },
+      "miles": {
+        "estimated_diameter_max": 0.0033681464,
+        "estimated_diameter_min": 0.0015062809,
+      },
+    },
+    "id": "3831871",
+    "is_potentially_hazardous_asteroid": false,
+    "is_sentry_object": false,
+    "links": {
+      "self": "http://api.nasa.gov/neo/rest/v1/neo/3831871?api_key=9xtmkr7Q641Po13zDggMCjtaeBNXaLKNTc5VV4bw",
+    },
+    "name": "(2018 UA)",
+    "nasa_jpl_url": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=3831871",
+    "neo_reference_id": "3831871",
+  },
+}
+`;
+
+exports[`NearEarthObjectOfYear check 2019 1`] = `
+{
+  "closestObject": {
+    "absolute_magnitude_h": 32,
+    "close_approach_data": [
+      {
+        "close_approach_date": "2019-10-31",
+        "close_approach_date_full": "2019-Oct-31 14:45",
+        "epoch_date_close_approach": 1572533100000,
+        "miss_distance": {
+          "astronomical": "0.0000843156",
+          "kilometers": "12613.434167772",
+          "lunar": "0.0327987684",
+          "miles": "7837.6245563736",
+        },
+        "orbiting_body": "Earth",
+        "relative_velocity": {
+          "kilometers_per_hour": "46242.3361961642",
+          "kilometers_per_second": "12.8450933878",
+          "miles_per_hour": "28733.1893992222",
+        },
+      },
+    ],
+    "estimated_diameter": {
+      "feet": {
+        "estimated_diameter_max": 7.7629185592,
+        "estimated_diameter_min": 3.4716827204,
+      },
+      "kilometers": {
+        "estimated_diameter_max": 0.0023661375,
+        "estimated_diameter_min": 0.0010581689,
+      },
+      "meters": {
+        "estimated_diameter_max": 2.3661375011,
+        "estimated_diameter_min": 1.0581688593,
+      },
+      "miles": {
+        "estimated_diameter_max": 0.0014702492,
+        "estimated_diameter_min": 0.0006575154,
+      },
+    },
+    "id": "3892165",
+    "is_potentially_hazardous_asteroid": false,
+    "is_sentry_object": true,
+    "links": {
+      "self": "http://api.nasa.gov/neo/rest/v1/neo/3892165?api_key=9xtmkr7Q641Po13zDggMCjtaeBNXaLKNTc5VV4bw",
+    },
+    "name": "(2019 UN13)",
+    "nasa_jpl_url": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=3892165",
+    "neo_reference_id": "3892165",
+    "sentry_data": "http://api.nasa.gov/neo/rest/v1/neo/sentry/3892165?api_key=9xtmkr7Q641Po13zDggMCjtaeBNXaLKNTc5VV4bw",
+  },
+}
+`;
+
+exports[`NearEarthObjectOfYear check 2020 1`] = `
+{
+  "closestObject": {
+    "absolute_magnitude_h": 28.61,
+    "close_approach_data": [
+      {
+        "close_approach_date": "2020-11-13",
+        "close_approach_date_full": "2020-Nov-13 17:21",
+        "epoch_date_close_approach": 1605288060000,
+        "miss_distance": {
+          "astronomical": "0.0000450911",
+          "kilometers": "6745.532515957",
+          "lunar": "0.0175404379",
+          "miles": "4191.4795439266",
+        },
+        "orbiting_body": "Earth",
+        "relative_velocity": {
+          "kilometers_per_hour": "48337.6303770188",
+          "kilometers_per_second": "13.4271195492",
+          "miles_per_hour": "30035.1237195426",
+        },
+      },
+    ],
+    "estimated_diameter": {
+      "feet": {
+        "estimated_diameter_max": 36.9849494967,
+        "estimated_diameter_min": 16.5401722438,
+      },
+      "kilometers": {
+        "estimated_diameter_max": 0.0112730122,
+        "estimated_diameter_min": 0.0050414443,
+      },
+      "meters": {
+        "estimated_diameter_max": 11.2730122458,
+        "estimated_diameter_min": 5.0414443386,
+      },
+      "miles": {
+        "estimated_diameter_max": 0.0070047229,
+        "estimated_diameter_min": 0.0031326073,
+      },
+    },
+    "id": "54087809",
+    "is_potentially_hazardous_asteroid": false,
+    "is_sentry_object": false,
+    "links": {
+      "self": "http://api.nasa.gov/neo/rest/v1/neo/54087809?api_key=9xtmkr7Q641Po13zDggMCjtaeBNXaLKNTc5VV4bw",
+    },
+    "name": "(2020 VT4)",
+    "nasa_jpl_url": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=54087809",
+    "neo_reference_id": "54087809",
+  },
+}
+`;
+
+exports[`NearEarthObjectOfYear check 2021 1`] = `
+{
+  "closestObject": {
+    "absolute_magnitude_h": 31,
+    "close_approach_data": [
+      {
+        "close_approach_date": "2021-02-09",
+        "close_approach_date_full": "2021-Feb-09 01:50",
+        "epoch_date_close_approach": 1612835400000,
+        "miss_distance": {
+          "astronomical": "0.0001524759",
+          "kilometers": "22810.069866333",
+          "lunar": "0.0593131251",
+          "miles": "14173.5201800754",
+        },
+        "orbiting_body": "Earth",
+        "relative_velocity": {
+          "kilometers_per_hour": "39919.5004223462",
+          "kilometers_per_second": "11.0887501173",
+          "miles_per_hour": "24804.4251374295",
+        },
+      },
+    ],
+    "estimated_diameter": {
+      "feet": {
+        "estimated_diameter_max": 12.3033967782,
+        "estimated_diameter_min": 5.50224631,
+      },
+      "kilometers": {
+        "estimated_diameter_max": 0.0037500752,
+        "estimated_diameter_min": 0.0016770846,
+      },
+      "meters": {
+        "estimated_diameter_max": 3.750075218,
+        "estimated_diameter_min": 1.6770846216,
+      },
+      "miles": {
+        "estimated_diameter_max": 0.002330188,
+        "estimated_diameter_min": 0.0010420917,
+      },
+    },
+    "id": "54111260",
+    "is_potentially_hazardous_asteroid": false,
+    "is_sentry_object": false,
+    "links": {
+      "self": "http://api.nasa.gov/neo/rest/v1/neo/54111260?api_key=9xtmkr7Q641Po13zDggMCjtaeBNXaLKNTc5VV4bw",
+    },
+    "name": "(2021 CZ3)",
+    "nasa_jpl_url": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=54111260",
+    "neo_reference_id": "54111260",
+  },
+}
+`;
+
+exports[`NearEarthObjectOfYear check 2022 1`] = `
+{
+  "closestObject": {
+    "absolute_magnitude_h": 31.05,
+    "close_approach_data": [
+      {
+        "close_approach_date": "2022-03-25",
+        "close_approach_date_full": "2022-Mar-25 09:13",
+        "epoch_date_close_approach": 1648199580000,
+        "miss_distance": {
+          "astronomical": "0.0000992296",
+          "kilometers": "14844.536800952",
+          "lunar": "0.0386003144",
+          "miles": "9223.9674470576",
+        },
+        "orbiting_body": "Earth",
+        "relative_velocity": {
+          "kilometers_per_hour": "66643.3833194797",
+          "kilometers_per_second": "18.5120509221",
+          "miles_per_hour": "41409.6067075956",
+        },
+      },
+    ],
+    "estimated_diameter": {
+      "feet": {
+        "estimated_diameter_max": 12.0233372758,
+        "estimated_diameter_min": 5.376999893,
+      },
+      "kilometers": {
+        "estimated_diameter_max": 0.0036647131,
+        "estimated_diameter_min": 0.0016389095,
+      },
+      "meters": {
+        "estimated_diameter_max": 3.6647130844,
+        "estimated_diameter_min": 1.6389095149,
+      },
+      "miles": {
+        "estimated_diameter_max": 0.0022771464,
+        "estimated_diameter_min": 0.0010183708,
+      },
+    },
+    "id": "54264240",
+    "is_potentially_hazardous_asteroid": false,
+    "is_sentry_object": false,
+    "links": {
+      "self": "http://api.nasa.gov/neo/rest/v1/neo/54264240?api_key=9xtmkr7Q641Po13zDggMCjtaeBNXaLKNTc5VV4bw",
+    },
+    "name": "(2022 FD1)",
+    "nasa_jpl_url": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=54264240",
+    "neo_reference_id": "54264240",
+  },
+}
+`;
+
+exports[`NearEarthObjectOfYear check 2023 1`] = `
+{
+  "closestObject": {
+    "absolute_magnitude_h": 29.7,
+    "close_approach_data": [
+      {
+        "close_approach_date": "2023-01-27",
+        "close_approach_date_full": "2023-Jan-27 00:29",
+        "epoch_date_close_approach": 1674779340000,
+        "miss_distance": {
+          "astronomical": "0.0000666251",
+          "kilometers": "9966.973048537",
+          "lunar": "0.0259171639",
+          "miles": "6193.1898703306",
+        },
+        "orbiting_body": "Earth",
+        "relative_velocity": {
+          "kilometers_per_hour": "33362.081253914",
+          "kilometers_per_second": "9.2672447928",
+          "miles_per_hour": "20729.8998769112",
+        },
+      },
+    ],
+    "estimated_diameter": {
+      "feet": {
+        "estimated_diameter_max": 22.388501681,
+        "estimated_diameter_min": 10.0124423346,
+      },
+      "kilometers": {
+        "estimated_diameter_max": 0.0068240151,
+        "estimated_diameter_min": 0.0030517923,
+      },
+      "meters": {
+        "estimated_diameter_max": 6.824015094,
+        "estimated_diameter_min": 3.0517923259,
+      },
+      "miles": {
+        "estimated_diameter_max": 0.0042402451,
+        "estimated_diameter_min": 0.0018962952,
+      },
+    },
+    "id": "54339759",
+    "is_potentially_hazardous_asteroid": false,
+    "is_sentry_object": false,
+    "links": {
+      "self": "http://api.nasa.gov/neo/rest/v1/neo/54339759?api_key=9xtmkr7Q641Po13zDggMCjtaeBNXaLKNTc5VV4bw",
+    },
+    "name": "(2023 BU)",
+    "nasa_jpl_url": "https://ssd.jpl.nasa.gov/tools/sbdb_lookup.html#/?sstr=54339759",
+    "neo_reference_id": "54339759",
+  },
+}
+`;
