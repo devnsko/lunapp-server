@@ -1,5 +1,5 @@
 
-Name: Node.js CI with Jest
+name: Node.js CI with Jest
 
 on:
   push:
@@ -17,10 +17,10 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Use Node.js 14.x
+    - name: Use Node.js 20.x
       uses: actions/setup-node@v2
       with:
-        node-version: '20.15.0'
+        node-version: '20.x'
     
     - name: Install dependencies
       run: npm install
@@ -29,4 +29,4 @@ jobs:
       run: npm run build
       
     - name: Run tests
-      run: npx Jest
+      run: npx jest
