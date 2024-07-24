@@ -1,7 +1,6 @@
 import axios from 'axios';
 import fs from 'fs';
 import path from 'path';
-import config from '../../config';
 import util from 'util';
 
 // Convert fs.readFile into Promise version of same    
@@ -10,8 +9,8 @@ const writeFile = util.promisify(fs.writeFile);
 const exists = util.promisify(fs.exists);
 const mkdir = util.promisify(fs.mkdir);
 
-const _key = config.nasa_api_key || 'DEMO_KEY';
-const __datapath = config.data || 'data'; // Path to store data
+const _key = process.env.NASA_API_KEY || 'DEMO_KEY';
+const __datapath = process.env.DATA_PATH || 'data'; // Path to store data
 const __donkipath = path.join(__datapath, 'Donki'); // Path to store DONKI data
 
 const base_url = 'https://api.nasa.gov/DONKI';

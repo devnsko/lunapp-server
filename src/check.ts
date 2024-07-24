@@ -5,20 +5,25 @@ interface NeoData {
     [date: string]: any;
 }
 
+
+
 export default async function check() {
-    const data = await readFile('data/Neo/NEO_year_2022.json', { encoding: 'utf-8' });
+    const data = await readFile('data/Neo/NEO_year_2000.json', { encoding: 'utf-8' });
     
     // Step 2: Parse the JSON data
     const jsonData: NeoData[] = JSON.parse(data);
 
     // Step 3: Extract the dates
-    const dates = jsonData.map(entry => Object.keys(entry).map(date => date)).flat();
-
-    // Step 4: Count the unique dates
-    const uniqueDates = new Set(dates);
-    console.log('Unique dates count:', uniqueDates.size);
-    console.log('Total dates count:', dates.length);
-    for (const date of dates) {
-        console.log(date);
-    }
+    const dates = jsonData.map(date => {
+        
+    });
+    // Step 4: Write the dates to a file
+    writeFile('data/Neo/TEST.json', JSON.stringify(jsonData[0], null, 4), (err) => {
+        if (err) {
+            console.error('Error writing file:', err);
+        } else {
+            console.log('File written successfully!');
+        }
+    });
+    return { message: 'Check completed' };
 };

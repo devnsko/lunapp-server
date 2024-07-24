@@ -1,3 +1,6 @@
+import dotenv from 'dotenv';
+dotenv.config({ path: '../.env' });
+
 import * as apis from './apis';
 
 process.on('unhandledRejection', (reason, promise) => {

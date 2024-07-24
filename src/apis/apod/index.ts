@@ -1,18 +1,8 @@
 import axios from 'axios';
-import fs from 'fs';
-import path from 'path';
-import config from '../../config';
-import util from 'util';
 import IPhotoOfDay from '../../types/photoOfDay';
+import { getPhotoOfDay, insertPhotoOfDay } from '../../controllers/apodController';
 
-// Convert fs.readFile into Promise version of same    
-const readFile = util.promisify(fs.readFile);
-const writeFile = util.promisify(fs.writeFile);
-const exists = util.promisify(fs.exists);
-const mkdir = util.promisify(fs.mkdir);
-
-const _key = config.nasa_api_key || 'DEMO_KEY';
-const __datapath = config.data || 'data';
+const _key = process.env.NASA_API_KEY || 'DEMO_KEY';
 
 export default async function photoOfDay(inputDate: string = ''): Promise<object> {
     try {
@@ -21,9 +11,23 @@ export default async function photoOfDay(inputDate: string = ''): Promise<object
             today = new Date(inputDate);
         }
         const date = today.toISOString().split('T')[0];
-        if (await exists(path.join(__datapath, 'photoOfDay', `photoOfDay-${date}.json`))) {
-            const file = await readFile(path.join(__datapath, 'photoOfDay', `photoOfDay-${date}.json`), { encoding: 'utf-8' });
-            const data: IPhotoOfDay = JSON.parse(file);
+        let data: IPhotoOfDay | null = await getPhotoOfDay(date);
+        if (!data) {
+            const url = `https://api.nasa.gov/planetary/apod?api_key=${_key}&date=${date}`;
+            const res = await axios.get(url);
+            
+            if (res.status !== 200){
+                return {message: 'Invalid date'}
+            }
+            data = res.data;
+            if(data)
+                await insertPhotoOfDay(data);
+        }
+        else {
+            console.log('Photo of the day found in the database!');
+        }
+        
+        if (data) {
             return ({
                 title: data.title,
                 date: data.date,
@@ -31,31 +35,14 @@ export default async function photoOfDay(inputDate: string = ''): Promise<object
                 media_type: data.media_type,
                 hdurl: data.hdurl,
                 url: data.url
-            })
+            });
         }
-        
-        const url = `https://api.nasa.gov/planetary/apod?api_key=${_key}&date=${date}`;
-        const res = await axios.get(url);
-
-        const data: IPhotoOfDay = res.data;
-        
-        //create folder if not exists
-        if (!(await exists(path.join(__datapath, 'photoOfDay')))) {
-            await mkdir(path.join(__datapath, 'photoOfDay'));
+        return {
+            message: 'No data found'
         }
-        const jsonData = JSON.stringify(data, null, 4);
-        await writeFile(path.join(__datapath, 'photoOfDay', `photoOfDay-${date}.json`), jsonData, { encoding: 'utf-8' });
-        return ({
-            title: data.title,
-            date: data.date,
-            explanation: data.explanation,
-            media_type: data.media_type,
-            hdurl: data.hdurl,
-            url: data.url
-        });
 
     } catch (error) {
-        console.error('Error:', error);
-        throw error;
+        // console.error('Error:', error);
+        throw new Error('Error fetching data');
     }
 }

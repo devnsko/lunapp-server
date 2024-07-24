@@ -1,4 +1,4 @@
-interface PhotoOfDay {
+interface IPhotoOfDay {
     date: string;
     explanation: string;
     hdurl: string;
@@ -8,4 +8,4 @@ interface PhotoOfDay {
     url: string;
 }
 
-export default PhotoOfDay;
+export default IPhotoOfDay;
