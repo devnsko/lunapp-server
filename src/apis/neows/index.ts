@@ -2,7 +2,7 @@ import axios from 'axios';
 import fs from 'fs';
 import path from 'path';
 import util from 'util';
-import { NeoModel } from '../../database/schemas';
+import INearEarthObject from '../../types/neo';
 
 // Convert fs.readFile into Promise version of same    
 const readFile = util.promisify(fs.readFile);
@@ -126,38 +126,6 @@ async function GetBrowse(): Promise<string> {
 
 }
 
-// calculate the closest object to earth
-async function GetClosestObject(objects: any): Promise<any> {
-    let closestObject = null;
-    let closestDistance = Infinity;
-    let i = 0;
-    for (const entry of objects) {
-        for (const date in entry) {
-            for (const asteroid of entry[date]) {
-                
-                const missDistanceKm = parseFloat(asteroid.close_approach_data[0].miss_distance.kilometers);
-                if (missDistanceKm < closestDistance) {
-                    closestDistance = missDistanceKm;
-                    closestObject = asteroid;
-                }
-            }
-        }
-    }
-    
-    return {
-        closestObject
-    };
-};
-
-export async function NearEarthObject(start_date: string = '', end_date: string = ''): Promise<string> {
-    [start_date, end_date] = await ValidateDates(start_date, end_date);
-    const res = await GetFeed(start_date, end_date);
-
-    const near = await GetClosestObject(res);
-
-    return near;
-}
-
 
 export async function NearEarthObjectLookUp(asteroid_id: string): Promise<string> {
     const res = await GetLookUp(asteroid_id);
@@ -169,60 +137,28 @@ export async function NearEarthObjectBrowse(): Promise<string> {
     return res;
 }
 
-export async function NearEarthObjectOfYear(year: string): Promise<any> {
-    // let closestObjectKilometers: number = -1;
-    let closestObject
-    if(year.length !== 4 || isNaN(Number(year)) || Number(year) < 1950 || Number(year) > 2023){
-        return 'Invalid year. Please enter a year between 1950 and 2023.';
+export async function fetchNEO(start_date: string, end_date: string): Promise<INearEarthObject[]> {
+    const url = `${base_url}/feed?start_date=${start_date}&end_date=${end_date}&api_key=${_key}`;
+    const response = await axios.get(url);
+    if (response.status !== 200) {
+        throw new Error('Failed to fetch NEO data');
     }
-
-    const days = days_of_a_year(Number(year));
-    let objects = [];
-    let start_date = new Date(`${year}-01-01`);
-    //cycle for all days by step of 7
-    for (let i = 0; i < days; i += 7) {
-        const end_date = new Date(start_date);
-        end_date.setDate(start_date.getDate() + 6);
-
-        const parsed_start_date = start_date.toISOString().split('T')[0];
-        let parsed_end_date = end_date.toISOString().split('T')[0];
-        if (end_date.getFullYear() > Number(year)) {
-            parsed_end_date = `${year}-12-31`;
+    const objects: INearEarthObject[] = [];
+    const week = response.data.near_earth_objects;
+    for (const day in week) {
+        if (Array.isArray(week[day])) {
+            week[day].forEach((neo: INearEarthObject) => {
+                objects.push(neo);
+            });
+        } else {
+            console.error(`Expected an array for day ${day}, but got`, week[day]);
         }
-        
-        const url = `https://api.nasa.gov/neo/rest/v1/feed?start_date=${parsed_start_date}&end_date=${parsed_end_date}&api_key=${_key}`;
-        const data = await axios.get(url);
-
-        // !!!!!!!
-        if (data.status !== 200) {
-            break;
-        }
-
-        
-        console.log([url, start_date, end_date, `${i}/${days}`]);
-        objects.push({...data.data.near_earth_objects});
-        start_date.setDate(start_date.getDate() + 7);
     }
-
-    //check objects on the closest one by date>close_approach_data>miss_distance>kilometers
-    closestObject = await GetClosestObject(objects);
-    
-    //save the closest object to the test-data.json file
-    const readRaw = await readFile('src/apis/neows/test-data.json', { encoding: 'utf-8' });
-    let testData = JSON.parse(readRaw);
-    testData[year] = +closestObject.closestObject.close_approach_data[0].miss_distance.kilometers;
-    await writeFile(`src/apis/neows/test-data.json`, JSON.stringify(testData, null, 4), { encoding: 'utf-8' });
-    return closestObject;
-}
-
-// Define a JavaScript function called days_of_a_year with parameter year
-function days_of_a_year(year: number): number {
-   // Return 366 if the given year is a leap year, otherwise return 365
-  return isLeapYear(year) ? 366 : 365;
-}
-
-// Define a JavaScript function called isLeapYear with parameter year
-function isLeapYear(year: number): boolean {
-    // Return true if the given year is divisible by 400 or divisible by 4 but not divisible by 100
-    return year % 400 === 0 || (year % 100 !== 0 && year % 4 === 0);
+    if (objects.length != response.data.element_count) {
+        console.error('Failed to fetch all NEO data', {parsed: objects.length, responsed: response.data.element_count});
+    }
+    if (objects.length == 0) {
+        throw new Error('FUCK!');
+    }
+    return objects;
 }

@@ -2,6 +2,7 @@ import axios from 'axios';
 import fs from 'fs';
 import path from 'path';
 import util from 'util';
+import { isValidDateFormat } from '../../utils/queryValidate';
 
 // Convert fs.readFile into Promise version of same    
 const readFile = util.promisify(fs.readFile);
@@ -15,28 +16,6 @@ const __donkipath = path.join(__datapath, 'Donki'); // Path to store DONKI data
 
 const base_url = 'https://api.nasa.gov/DONKI';
 
-function isValidDateFormat(date: string): boolean {
-    // Regular expression to match YYYY-MM-DD format
-    const regex = /^\d{4}-\d{2}-\d{2}$/;
-    if (!regex.test(date)) {
-        return false;
-    }
-
-    // Parse the date and check if it is valid
-    const parsedDate = new Date(date);
-    const [year, month, day] = date.split('-').map(Number);
-    
-    // Check if the parsed date components match the input components
-    if (
-        parsedDate.getFullYear() !== year ||
-        parsedDate.getMonth() + 1 !== month || // getMonth() returns month index starting from 0
-        parsedDate.getDate() !== day
-    ) {
-        return false;
-    }
-
-    return true;
-}
 
 async function ValidateDates(start_date: string, end_date: string){
     if (!start_date) {

@@ -2,7 +2,7 @@ import express, { Express, Request, Response } from "express";
 import cors from "cors";
 import morgan from "morgan";
 import http from "http";
-import { dbConnect } from "./database/database";
+import { dbConnect } from "./services/database/database";
 
 import check from "./check";
 import generate from "./auto";
@@ -19,6 +19,7 @@ app.use(cors());
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
 app.use(apodRouter);
 app.use(neoRouter);
 

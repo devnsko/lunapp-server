@@ -1,9 +1,9 @@
-export default interface NearEarthObject {
+export default interface INearEarthObject {
     links: {
         self: string;
     };
     id: number;
-    neo_id: string;
+    neo_reference_id: string;
     name: string;
     nasa_jpl_url: string;
     absolute_magnitude_h: number;

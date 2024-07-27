@@ -1,5 +1,4 @@
 import { dbQuery } from "../database";
-import IPhotoOfDay from "../../types/photoOfDay";
 import { ApodData, ApodModel } from "../schemas";
 
 async function insert(object: ApodData): Promise<ApodModel> {
@@ -20,7 +19,6 @@ async function insert(object: ApodData): Promise<ApodModel> {
             object.url
         ];
         const row = await dbQuery(query, values);
-        console.log('000', {dataaaaa: row});
         console.log('Photo of the day inserted successfully!');
         if (row.length !== 1) {
             console.error('Error inserting photo of the day', row);

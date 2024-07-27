@@ -26,12 +26,13 @@ export async function creatPhotoOfDayTable(): Promise<void> {
             media_type TEXT NOT NULL,
             hdurl TEXT NOT NULL,
             url TEXT NOT NULL,
+            CONSTRAINT date_unique UNIQUE (date),
             createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
             updatedAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
         );
-        ALTER TABLE photoofday ADD CONSTRAINT date_unique UNIQUE (date);
     `;
     await dbQuery(query);
+    console.log('🛰️  [Database] \'Photo of the day\' table created successfully!');
 }
 
 // Interfaces for the Near Earth Object based on the table schema
@@ -89,7 +90,7 @@ export async function creatNeoTable(): Promise<void> {
             is_potentially_hazardous_asteroid BOOLEAN NOT NULL,
             close_approach_date TEXT NOT NULL,
             close_approach_date_full TEXT NOT NULL,
-            epoch_date_close_approach INTEGER NOT NULL,
+            epoch_date_close_approach BIGINT NOT NULL,
             relative_velocity_kilometers_per_second TEXT NOT NULL,
             relative_velocity_kilometers_per_hour TEXT NOT NULL,
             relative_velocity_miles_per_hour TEXT NOT NULL,
@@ -104,6 +105,7 @@ export async function creatNeoTable(): Promise<void> {
         );
     `;
     await dbQuery(query);
+    console.log('🛰️  [Database] \'Neo\' table created successfully!');
 }
 
 
@@ -136,4 +138,5 @@ export async function creatTestsTable(): Promise<void> {
             updatedAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
         );`;
     await dbQuery(query);
+    console.log('🛰️  [Database] \'Tests\' tables created successfully!');
 }
