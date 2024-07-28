@@ -6,7 +6,7 @@ export interface ApodData {
     date: string;
     explanation: string;
     media_type: string;
-    hdurl: string;
+    hdurl?: string; // Optional
     url: string;
 } 
 
@@ -24,7 +24,7 @@ export async function creatPhotoOfDayTable(): Promise<void> {
             date DATE NOT NULL,
             explanation TEXT NOT NULL,
             media_type TEXT NOT NULL,
-            hdurl TEXT NOT NULL,
+            hdurl TEXT,
             url TEXT NOT NULL,
             CONSTRAINT date_unique UNIQUE (date),
             createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -41,15 +41,15 @@ export interface NeoData {
     neo_id: string;
     name: string;
     nasa_jpl_url: string;
-    absolute_magnitude_h: number;
-    estimated_diameter_kilometers_min: number;
-    estimated_diameter_kilometers_max: number;
-    estimated_diameter_meters_min: number;
-    estimated_diameter_meters_max: number;
-    estimated_diameter_miles_min: number;
-    estimated_diameter_miles_max: number;
-    estimated_diameter_feet_min: number;
-    estimated_diameter_feet_max: number;
+    absolute_magnitude_h?: number;
+    estimated_diameter_kilometers_min?: number;
+    estimated_diameter_kilometers_max?: number;
+    estimated_diameter_meters_min?: number;
+    estimated_diameter_meters_max?: number;
+    estimated_diameter_miles_min?: number;
+    estimated_diameter_miles_max?: number;
+    estimated_diameter_feet_min?: number;
+    estimated_diameter_feet_max?: number;
     is_potentially_hazardous_asteroid: boolean;
     close_approach_date: string;
     close_approach_date_full: string;
@@ -78,15 +78,15 @@ export async function creatNeoTable(): Promise<void> {
             neo_id TEXT NOT NULL,
             name TEXT NOT NULL,
             nasa_jpl_url TEXT NOT NULL,
-            absolute_magnitude_h REAL NOT NULL,
-            estimated_diameter_kilometers_min REAL NOT NULL,
-            estimated_diameter_kilometers_max REAL NOT NULL,
-            estimated_diameter_meters_min REAL NOT NULL,
-            estimated_diameter_meters_max REAL NOT NULL,
-            estimated_diameter_miles_min REAL NOT NULL,
-            estimated_diameter_miles_max REAL NOT NULL,
-            estimated_diameter_feet_min REAL NOT NULL,
-            estimated_diameter_feet_max REAL NOT NULL,
+            absolute_magnitude_h REAL,
+            estimated_diameter_kilometers_min REAL,
+            estimated_diameter_kilometers_max REAL,
+            estimated_diameter_meters_min REAL,
+            estimated_diameter_meters_max REAL,
+            estimated_diameter_miles_min REAL,
+            estimated_diameter_miles_max REAL,
+            estimated_diameter_feet_min REAL,
+            estimated_diameter_feet_max REAL,
             is_potentially_hazardous_asteroid BOOLEAN NOT NULL,
             close_approach_date TEXT NOT NULL,
             close_approach_date_full TEXT NOT NULL,
@@ -103,6 +103,8 @@ export async function creatNeoTable(): Promise<void> {
             createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
             updatedAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
         );
+        ALTER TABLE neo ALTER COLUMN absolute_magnitude_h DROP NOT NULL;
+        ALTER TABLE neo ALTER COLUMN estimated_diameter_kilometers_min DROP NOT NULL; ALTER TABLE neo ALTER COLUMN estimated_diameter_kilometers_max DROP NOT NULL; ALTER TABLE neo ALTER COLUMN estimated_diameter_meters_min DROP NOT NULL; ALTER TABLE neo ALTER COLUMN estimated_diameter_meters_max DROP NOT NULL; ALTER TABLE neo ALTER COLUMN estimated_diameter_miles_min DROP NOT NULL; ALTER TABLE neo ALTER COLUMN estimated_diameter_miles_max DROP NOT NULL; ALTER TABLE neo ALTER COLUMN estimated_diameter_feet_min DROP NOT NULL; ALTER TABLE neo ALTER COLUMN estimated_diameter_feet_max DROP NOT NULL;ALTER TABLE neo ALTER COLUMN estimated_diameter_kilometers_min DROP NOT NULL; ALTER TABLE neo ALTER COLUMN estimated_diameter_kilometers_max DROP NOT NULL; ALTER TABLE neo ALTER COLUMN estimated_diameter_meters_min DROP NOT NULL; ALTER TABLE neo ALTER COLUMN estimated_diameter_meters_max DROP NOT NULL; ALTER TABLE neo ALTER COLUMN estimated_diameter_miles_min DROP NOT NULL; ALTER TABLE neo ALTER COLUMN estimated_diameter_miles_max DROP NOT NULL; ALTER TABLE neo ALTER COLUMN estimated_diameter_feet_min DROP NOT NULL; ALTER TABLE neo ALTER COLUMN estimated_diameter_feet_max DROP NOT NULL;  
     `;
     await dbQuery(query);
     console.log('🛰️  [Database] \'Neo\' table created successfully!');

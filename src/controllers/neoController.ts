@@ -67,14 +67,32 @@ export async function NeoClosest (req: Request, res: Response) {
                             name: neo.name,
                             nasa_jpl_url: neo.nasa_jpl_url,
                             absolute_magnitude_h: neo.absolute_magnitude_h,
-                            estimated_diameter_kilometers_min: neo.estimated_diameter.kilometers.estimated_diameter_min,
-                            estimated_diameter_kilometers_max: neo.estimated_diameter.kilometers.estimated_diameter_max,
-                            estimated_diameter_meters_min: neo.estimated_diameter.meters.estimated_diameter_min,
-                            estimated_diameter_meters_max: neo.estimated_diameter.meters.estimated_diameter_max,
-                            estimated_diameter_miles_min: neo.estimated_diameter.miles.estimated_diameter_min,
-                            estimated_diameter_miles_max: neo.estimated_diameter.miles.estimated_diameter_max,
-                            estimated_diameter_feet_min: neo.estimated_diameter.feet.estimated_diameter_min,
-                            estimated_diameter_feet_max: neo.estimated_diameter.feet.estimated_diameter_max,
+                            // estimated_diameter_kilometers_min: neo.estimated_diameter?.kilometers?.estimated_diameter_min ?? null,
+                            // estimated_diameter_kilometers_max: neo.estimated_diameter.kilometers.estimated_diameter_max,
+                            // estimated_diameter_meters_min: neo.estimated_diameter.meters.estimated_diameter_min,
+                            // estimated_diameter_meters_max: neo.estimated_diameter.meters.estimated_diameter_max,
+                            // estimated_diameter_miles_min: neo.estimated_diameter.miles.estimated_diameter_min,
+                            // estimated_diameter_miles_max: neo.estimated_diameter.miles.estimated_diameter_max,
+                            // estimated_diameter_feet_min: neo.estimated_diameter.feet.estimated_diameter_min,
+                            // estimated_diameter_feet_max: neo.estimated_diameter.feet.estimated_diameter_max,
+                            estimated_diameter: {
+                                kilometers: {
+                                    estimated_diameter_min: neo.estimated_diameter?.kilometers?.estimated_diameter_min ?? null,
+                                    estimated_diameter_max: neo.estimated_diameter?.kilometers?.estimated_diameter_max ?? null
+                                },
+                                meters: {
+                                    estimated_diameter_min: neo.estimated_diameter?.meters?.estimated_diameter_min ?? null,
+                                    estimated_diameter_max: neo.estimated_diameter?.meters?.estimated_diameter_max ?? null
+                                },
+                                miles: {
+                                    estimated_diameter_min: neo.estimated_diameter?.miles?.estimated_diameter_min ?? null,
+                                    estimated_diameter_max: neo.estimated_diameter?.miles?.estimated_diameter_max ?? null
+                                },
+                                feet: {
+                                    estimated_diameter_min: neo.estimated_diameter?.feet?.estimated_diameter_min ?? null,
+                                    estimated_diameter_max: neo.estimated_diameter?.feet?.estimated_diameter_max ?? null
+                                }
+                            },
                             is_potentially_hazardous_asteroid: neo.is_potentially_hazardous_asteroid,
                             close_approach_date: neo.close_approach_data[0].close_approach_date,
                             close_approach_date_full: neo.close_approach_data[0].close_approach_date_full,

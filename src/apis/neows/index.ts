@@ -145,20 +145,24 @@ export async function fetchNEO(start_date: string, end_date: string): Promise<IN
     }
     const objects: INearEarthObject[] = [];
     const week = response.data.near_earth_objects;
-    for (const day in week) {
-        if (Array.isArray(week[day])) {
-            week[day].forEach((neo: INearEarthObject) => {
-                objects.push(neo);
-            });
-        } else {
-            console.error(`Expected an array for day ${day}, but got`, week[day]);
+    try {
+        for (const day in week) {
+            if (Array.isArray(week[day])) {
+                week[day].forEach((neo: INearEarthObject) => {
+                    objects.push(neo);
+                });
+            } else {
+                console.error(`Expected an array for day ${day}, but got`, week[day]);
+            }
         }
-    }
-    if (objects.length != response.data.element_count) {
-        console.error('Failed to fetch all NEO data', {parsed: objects.length, responsed: response.data.element_count});
-    }
-    if (objects.length == 0) {
-        throw new Error('FUCK!');
+        if (objects.length != response.data.element_count) {
+            console.error('Failed to fetch all NEO data', {parsed: objects.length, responsed: response.data.element_count});
+        }
+        if (objects.length == 0) {
+            throw new Error('FUCK!');
+        }
+    } catch (error) {
+        console.error('[NO MISS]', JSON.stringify(week, null, 4));
     }
     return objects;
 }
