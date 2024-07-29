@@ -15,24 +15,18 @@ dbConnect();
 const PORT = process.env.PORT || 6000;
 const app: Express = express();
 
-app.use(cors());
+app.use(cors({
+  origin: ['http://localhost:3000', 'https://devnsko.com', 'http://devnsko.com'], // Ваш клиентский домен
+  credentials: true,
+}));
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use(apodRouter);
-app.use(neoRouter);
+app.use('/api/v1/today', apodRouter);
+app.use('/api/v1/neo', neoRouter);
 
 const server = http.createServer(app);
-
-app.get("/check", async (req: Request, res: Response) => {
-    const response = await check();
-    res.json(response);
-});
-
-app.get("/auto", async (req: Request, res: Response) => {
-    await generate(req, res);
-});
 
 server.listen(PORT, () => {
   console.log(`⚡️[server]: Server is running at http://localhost:${PORT}`);

@@ -33,7 +33,7 @@ export default async function APOD(req: Request, res: Response) {
         } else {
             apodData = getResponse;
         }
-        return res.json(apodData);
+        return res.status(200).json(apodData);
     } catch (error) {
         console.error('APOD Error:', error);
         res.status(500).json({ message: error });

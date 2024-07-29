@@ -3,6 +3,6 @@ import { NeoClosest } from "../controllers/neoController";
 import { validateQuery } from "../utils/queryValidate";
 const router = Router();
 
-router.get("/near", validateQuery, NeoClosest);
+router.get("/", validateQuery, NeoClosest);
 
 export default router;

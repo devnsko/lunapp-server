@@ -137,7 +137,7 @@ export async function NeoClosest (req: Request, res: Response) {
             await redis.set(cacheKey, JSON.stringify(closestEarthObject), { EX: 60 * 60 * 24 }); 
         }
         
-        res.json(closestEarthObject);
+        res.status(200).json(closestEarthObject);
     } catch (error) {
         console.error('🚨 [NeoController]: Error getting closest near earth object: 🚨', error);
         res.status(500).json({ error: (error as Error).message });
