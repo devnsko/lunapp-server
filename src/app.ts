@@ -16,7 +16,7 @@ const PORT = process.env.PORT || 6000;
 const app: Express = express();
 
 app.use(cors({
-  origin: ['http://localhost:3000', 'https://devnsko.com', 'http://devnsko.com'], // Ваш клиентский домен
+  origin: 'https://devnsko.com', // Ваш клиентский домен
   credentials: true,
 }));
 app.use(morgan("dev"));
