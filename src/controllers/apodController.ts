@@ -26,12 +26,16 @@ export default async function APOD(req: Request, res: Response) {
             if (getResponse) {
                 apodData = getResponse;
             } else {
-                let fetchData = await fetchAPOD(date);
-                if (!fetchData?.date) {
+                let fetchData: ApodData;
+                try {
+                    
+                    fetchData = await fetchAPOD(date);
+                } catch (error) {   
                     const dayBefore = new Date(date);
                     dayBefore.setDate(dayBefore.getDate() - 1);
                     fetchData = await fetchAPOD(dayBefore.toISOString().split('T')[0]);
                 }
+                
                 apodData = await apodDB.insert(fetchData as ApodData);
             }
             await redis.set(cacheKey, JSON.stringify(apodData), {'EX': 60 * 60 * 24});
