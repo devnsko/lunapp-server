@@ -27,7 +27,7 @@ export default async function APOD(req: Request, res: Response) {
                 apodData = getResponse;
             } else {
                 let fetchData = await fetchAPOD(date);
-                if (!fetchData) {
+                if (!fetchData?.date) {
                     const dayBefore = new Date(date);
                     dayBefore.setDate(dayBefore.getDate() - 1);
                     fetchData = await fetchAPOD(dayBefore.toISOString().split('T')[0]);
