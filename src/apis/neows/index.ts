@@ -1,18 +1,7 @@
 import axios from 'axios';
-import fs from 'fs';
-import path from 'path';
-import util from 'util';
 import INearEarthObject from '../../types/neo';
 
-// Convert fs.readFile into Promise version of same    
-const readFile = util.promisify(fs.readFile);
-const writeFile = util.promisify(fs.writeFile);
-const exists = util.promisify(fs.exists);
-const mkdir = util.promisify(fs.mkdir);
-
 const _key = process.env.NASA_API_KEY || 'DEMO_KEY';
-const __datapath = process.env.DATA_PATH || 'data'; // Path to store data
-const __neopath = path.join(__datapath, 'Neo'); // Path to store NEO data
 
 const base_url = 'https://api.nasa.gov/neo/rest/v1';
 
@@ -54,87 +43,21 @@ async function ValidateDates(start_date: string, end_date: string){
     }
     return [start_date, end_date];
 }
-   
 
-async function GetFeed(start_date: string, end_date: string): Promise<string> { 
-    // const folder = path.join(__neopath, 'Feed');
-    // const filename = `Feed_${start_date}_${end_date}.json`;   
-    // if (await exists(path.join(folder, filename))) {
-    //     const file = await readFile(path.join(folder, filename), { encoding: 'utf-8' });
-    //     return file;
-    // }
-    
-    const url = `https://api.nasa.gov/neo/rest/v1/feed?start_date=${start_date}&end_date=${end_date}&api_key=${_key}`;
+export async function fetcLookUp(asteroid_id: string): Promise<string> {
+    const url = `${base_url}/neo/${asteroid_id}?api_key=${_key}`;
     const data = await axios.get(url);
     
-    // //create folder if not exists
-    // if (!(await exists(path.join(folder)))) {
-    //     if (!(await exists(path.join(__neopath)))) {
-    //         await mkdir(path.join(__neopath));
-    //     }
-    //     await mkdir(path.join(folder));
-    // }
-    // await writeFile(path.join(folder, filename), JSON.stringify(jsonData, null, 4), { encoding: 'utf-8' });
-    const jsonData = data.data;
-    return jsonData;
-}
-
-async function GetLookUp(asteroid_id: string): Promise<string> {
-    const folder = path.join(__neopath, 'LookUp');
-    const filename = `Asteroid_${asteroid_id}.json`;
-    if (await exists(path.join(folder ,filename))) {
-        const file = await readFile(path.join(folder, filename), { encoding: 'utf-8' });
-        return file;
-    }
-    
-    const url = `https://api.nasa.gov/neo/rest/v1/neo/${asteroid_id}?api_key=${_key}`;
-    const data = await axios.get(url);
-    
-    //create folder if not exists
-    if (!(await exists(path.join(folder)))) {
-        if (!(await exists(path.join(__neopath)))) {
-            await mkdir(path.join(__neopath));
-        }
-        await mkdir(path.join(folder));
-    }
     const jsonData = JSON.stringify(data.data, null, 4);
-    await writeFile(path.join(folder, filename), jsonData, { encoding: 'utf-8' });
     return jsonData;
 }
 
-async function GetBrowse(): Promise<string> {
-    const folder = path.join(__neopath, 'Browse');
-    const filename = 'Browse.json';
-    if (await exists(path.join(folder, filename))) {
-        const file = await readFile(path.join(folder, filename), { encoding: 'utf-8' });
-        return file;
-    }
-    
-    const url = `https://api.nasa.gov/neo/rest/v1/neo/browse?api_key=${_key}`;
+export async function fetcBrowse(): Promise<string> {    
+    const url = `${base_url}/neo/browse?api_key=${_key}`;
     const data = await axios.get(url);
     
-    //create folder if not exists
-    if (!(await exists(path.join(folder)))) {
-        if (!(await exists(path.join(__neopath)))) {
-            await mkdir(path.join(__neopath));
-        }
-        await mkdir(path.join(folder));
-    }
     const jsonData = JSON.stringify(data.data, null, 4);
-    await writeFile(path.join(folder, filename), jsonData, { encoding: 'utf-8' });
     return jsonData;
-
-}
-
-
-export async function NearEarthObjectLookUp(asteroid_id: string): Promise<string> {
-    const res = await GetLookUp(asteroid_id);
-    return res;
-}
-
-export async function NearEarthObjectBrowse(): Promise<string> {
-    const res = await GetBrowse();
-    return res;
 }
 
 export async function fetchNEO(start_date: string, end_date: string): Promise<INearEarthObject[]> {
