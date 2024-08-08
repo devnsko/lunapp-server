@@ -4,10 +4,11 @@ import morgan from "morgan";
 import http from "http";
 import { dbConnect } from "./services/database/database";
 
-import authRouter from "./routes/authRoute";
+import userRouter from "./routes/userRoute";
 import apodRouter from "./routes/apodRoute";
 import neoRouter from "./routes/neoRoute";
 import rateLimit from "express-rate-limit";
+import errorMiddleware from "./middlewares/error-middleware";
 
 console.log("🚀 [Server]: Starting server...");
 dbConnect();
@@ -37,8 +38,9 @@ app.use((req, res, next) => {
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(errorMiddleware);
 
-app.use('/api/v1/auth', authRouter);
+app.use('/api/v1/auth', userRouter);
 app.use('/api/v1/today', apodRouter);
 app.use('/api/v1/neo', neoRouter);
 

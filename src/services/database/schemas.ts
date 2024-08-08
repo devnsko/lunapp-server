@@ -110,35 +110,60 @@ export async function creatNeoTable(): Promise<void> {
     console.log('🛰️  [Database] \'Neo\' table created successfully!');
 }
 
+export interface UserInput {
+    email: string;
+    password: string;
+}
 
-// Function to create table for Tests postgreSQL
-export async function creatTestsTable(): Promise<void> {
+export interface UserData {
+    name?: string;
+    email: string;
+    password: string;
+    isactivated: boolean;
+    activationlink: string;
+}
+
+// Interface for user data after it's saved to the database (with ID)
+export interface UserModel extends UserData {
+    id: number;
+    createdAt: Date;
+    updatedAt: Date;
+}
+
+export async function createUserTable(): Promise<void> {
     const query = `
-        CREATE TABLE IF NOT EXISTS tests (
+        DROP TABLE IF EXISTS users CASCADE;
+        CREATE TABLE IF NOT EXISTS users (
             id SERIAL PRIMARY KEY,
-            name TEXT NOT NULL,
-            description TEXT NOT NULL,
-            date DATE NOT NULL,
-            createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-            updatedAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
-        );
-        CREATE TABLE IF NOT EXISTS testA_users (
-            id SERIAL PRIMARY KEY,
-            name TEXT NOT NULL,
+            name TEXT,
             email TEXT NOT NULL,
             password TEXT NOT NULL,
+            isactivated BOOLEAN DEFAULT FALSE,
+            activationlink TEXT NOT NULL,
             createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
             updatedAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
         );
-        CREATE TABLE IF NOT EXISTS testA_users_to_tests (
-            id SERIAL PRIMARY KEY,
-            user_id INTEGER NOT NULL,
-            title TEXT NOT NULL,
-            rate INTEGER NOT NULL,
-            test_id INTEGER NOT NULL,
-            createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-            updatedAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
-        );`;
+    `;
     await dbQuery(query);
-    console.log('🛰️  [Database] \'Tests\' tables created successfully!');
+    console.log('🛰️  [Database] \'Users\' table created successfully!');
+}
+
+export interface TokenData {
+    userId: number;
+    refreshToken: string;
+}
+
+export async function createTokenTable(): Promise<void> {
+    const query = `
+        DROP TABLE IF EXISTS tokens CASCADE;
+        CREATE TABLE IF NOT EXISTS tokens (
+            userId INT PRIMARY KEY NOT NULL,
+            refreshToken TEXT NOT NULL,
+            createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            updatedAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            FOREIGN KEY (userId) REFERENCES users(id)
+        );
+    `;
+    await dbQuery(query);
+    console.log('🛰️  [Database] \'Tokens\' table created successfully!');
 }
