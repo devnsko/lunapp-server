@@ -4,8 +4,7 @@ import morgan from "morgan";
 import http from "http";
 import { dbConnect } from "./services/database/database";
 
-import check from "./check";
-import generate from "./auto";
+import authRouter from "./routes/authRoute";
 import apodRouter from "./routes/apodRoute";
 import neoRouter from "./routes/neoRoute";
 import rateLimit from "express-rate-limit";
@@ -18,7 +17,7 @@ const app: Express = express();
 
 app.use(rateLimit({
   windowMs: 1 * 60 * 1000,
-  max: 20,
+  max: 90,
   message: {
     status: 429,
     message: "Too many requests, please try again later.",
@@ -39,6 +38,7 @@ app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/today', apodRouter);
 app.use('/api/v1/neo', neoRouter);
 
