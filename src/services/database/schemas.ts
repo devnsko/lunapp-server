@@ -167,3 +167,28 @@ export async function createTokenTable(): Promise<void> {
     await dbQuery(query);
     console.log('🛰️  [Database] \'Tokens\' table created successfully!');
 }
+
+export interface ApodRateData {
+    user_id: number,
+    post_id: number,
+}
+
+export interface ApodRateModel extends ApodRateData {
+    id: number,
+    rated_at: Date
+}
+
+export async function createApodRateTable(): Promise<void> {
+    const query =`
+        DROP TABLE IF EXISTS apodRate CASCADE;
+        CREATE TABLE IF NOT EXISTS apodRate (
+            id SERIAL PRIMARY KEY,
+            user_id VARCHAR(255) NOT NULL,
+            post_id VARCHAR(255) NOT NULL,
+            rated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            UNIQUE (user_id, post_id)
+        );
+    `
+    await dbQuery(query);
+    console.log('🛰️  [Database] \'APOD Rating\' table created successfully!');
+}

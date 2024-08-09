@@ -3,10 +3,12 @@ import cors from "cors";
 import morgan from "morgan";
 import http from "http";
 import { dbConnect } from "./services/database/database";
+import checkAuth from "./utils/checkAuth";
 
 import userRouter from "./routes/userRoute";
 import apodRouter from "./routes/apodRoute";
 import neoRouter from "./routes/neoRoute";
+import rateRouter from "./routes/rateRoute";
 import rateLimit from "express-rate-limit";
 import errorMiddleware from "./middlewares/error-middleware";
 
@@ -41,7 +43,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(errorMiddleware);
 
 app.use('/api/v1/auth', userRouter);
-app.use('/api/v1/today', apodRouter);
+app.use('/api/v1/today', checkAuth, apodRouter);
+app.use('/api/v1/rate', rateRouter)
 app.use('/api/v1/neo', neoRouter);
 
 const server = http.createServer(app);

@@ -1,0 +1,29 @@
+### Register
+POST http://127.0.0.1:5000/api/v1/auth/register
+Content-Type: application/json
+
+{
+    "email": "20denysko05@gmail.com",
+    "password": "qwerty"
+}
+
+### LOGIN
+POST http://127.0.0.1:5000/api/v1/auth/login
+Content-Type: application/json
+
+{
+    "email": "20denysko05@gmail.com",
+    "password": "qwerty"
+}
+
+### today photo
+GET http://127.0.0.1:5000/api/v1/today
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTcyMzIxMzA0MywiZXhwIjoxNzIzMjE0ODQzfQ.tRjpyySwTD8N66cjF0nQ9wZO7Eti9eAiqP6YuR7PYPY
+
+### count likes
+POST http://127.0.0.1:5000/api/v1/rate/like
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTcyMzIxMzIwMCwiZXhwIjoxNzIzMjE1MDAwfQ.PcxJkxY8mgrccKAa3E2VwKBpI9yZxZ_TuEw5OWBVYy0
+
+{
+    "apodId": 1
+}

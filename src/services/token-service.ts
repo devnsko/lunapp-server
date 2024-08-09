@@ -16,6 +16,10 @@ class TokenService {
         } as TokensPair;
     }
 
+    async checkToken(accessToken: string) {
+        
+    }
+
     async saveToken(userId: number, refreshToken: string) {
         const tokenData = await updateToken({ userId, refreshToken });
     }

@@ -1,5 +1,5 @@
 import { Pool } from 'pg';
-import { creatPhotoOfDayTable, creatNeoTable, createUserTable, createTokenTable } from './schemas';
+import { creatPhotoOfDayTable, creatNeoTable, createUserTable, createTokenTable, createApodRateTable } from './schemas';
 
 // Create a new pool instance
 const pool = new Pool({
@@ -16,6 +16,7 @@ async function connect(): Promise<boolean> {
         await creatNeoTable();
         await createUserTable();
         await createTokenTable();
+        await createApodRateTable();
         console.log('🌌 [Database] Connected to the database');
         return true;
     } catch (error) {

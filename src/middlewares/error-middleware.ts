@@ -1,4 +1,4 @@
-import { ApiError } from "../exceptions/api-error";
+import ApiError from "../exceptions/api-error";
 import { Request, Response, NextFunction } from "express";
 
 
@@ -6,5 +6,5 @@ export default function (err: Error, req: Request, res: Response, next: NextFunc
     if (err instanceof ApiError) {
         return res.status(err.status).json({ message: err.message, errors: err.errors });
     }
-    return res.status(500).json({ message: 'Something went wrong' });
+    return res.status(500).json({ message: 'Something went wrong', err: err });
 }
