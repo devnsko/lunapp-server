@@ -5,7 +5,7 @@ import { UserData, UserModel } from "./database/schemas";
 import tokenService from "./token-service";
 import { UserDto } from "../dtos/userDto";
 import ApiError from "../exceptions/api-error";
-// import mailService from "./mail-service";
+import mailService from "./mail-service";
 
 class UserService {
     async registration(email: string, password: string) {
@@ -16,8 +16,7 @@ class UserService {
         const hashPassword = await bcrypt.hash(password, 10);
         const activationlink = uuidv4();
         const user: UserModel = await userDB.create({ email, password: hashPassword, isactivated: false, activationlink} as UserData);
-        console.log(user)
-        // await mailService.sendMail(email, `${process.env.API_URL}/activate/${activationLink}`);
+        await mailService.sendMail(email, `${process.env.API_URL}/auth/activate/${activationlink}`);
 
         const userDto: UserDto = new UserDto({...user});
         const token = tokenService.generateTokens({ userId: userDto.id });

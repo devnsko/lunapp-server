@@ -45,9 +45,23 @@ export async function hasLike(req: Request, res: Response) {
     })
 }
 
+export async function myLikes(req: Request, res: Response) {
+    const { apodId } = req.body;
+    const likes: ApodRateModel[] = await apodRateRequest.likesByUser(req.user);
+
+    return res.json({
+        apodId,
+        myLikes: [
+            ...likes
+        ]
+    })
+}
+
+
 export default {
     hasLike,
     addLike,
     removeLike,
-    countLikes
+    countLikes,
+    myLikes
 }

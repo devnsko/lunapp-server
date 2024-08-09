@@ -61,4 +61,18 @@ export async function countLikes(postId: number): Promise<number> {
     }
 }
 
-export default { hasLiked, addLike, removeLike, countLikes}
+export async function likesByUser(userId: number): Promise<ApodRateModel[]> {
+    try {
+        const query = `
+            SELECT * FROM apodRate
+            WHERE user_id = $1
+        `
+        const rows = await dbQuery(query, [userId]);
+        return rows;
+    } catch (error) {
+        console.error('🚨 [Database]: Error inserting photo of the day: 🚨', error);
+        throw error;
+    }
+}
+
+export default { hasLiked, addLike, removeLike, countLikes, likesByUser}
