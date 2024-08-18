@@ -10,6 +10,7 @@ export default {
             return res.json(userData);
         } catch (e) {
             console.log(e)
+            return res.status(500).json({message: 'Registration error'});
         }
     },
     async login(req: Request, res: Response) {
